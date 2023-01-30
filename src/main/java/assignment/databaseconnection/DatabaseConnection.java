@@ -2,12 +2,14 @@ package assignment.databaseconnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
     String url;
     String username;
     String password;
     Connection con;
+    Logger log =  Logger.getLogger("DatabaseConnection");
 
     private DatabaseConnection(String url, String username, String password) {
         this.url = url;
@@ -25,18 +27,18 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, username, password);
-            System.err.println("Connection Established successfully");
+            log.info("Connection Established successfully");
         } catch (Exception e) {
-            System.err.println(e);
+            log.info("Exception "+e);
         }
 
     }
     void closeCon() {
         try {
             con.close();
-            System.out.println("Connection Closed....");
+            log.info("Connection Closed....");
         } catch (Exception e) {
-            System.err.println(e);
+        	log.info("Exception "+e);
 
         }
 
